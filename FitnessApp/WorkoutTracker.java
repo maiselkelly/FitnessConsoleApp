@@ -33,7 +33,7 @@ public class WorkoutTracker {
 
     @Override
     public String toString() {
-        return "Workout Tracker" +
+        return "Workout: " +
                 "exercise ='" + exercise + '\'' +
                 ", sets =" + sets +
                 ", reps =" + reps +

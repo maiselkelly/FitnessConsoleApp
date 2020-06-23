@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class WeightClass {
+public class WeightManagement extends WeightManagementTracker{
     private int age;
-    private int weight;
+    protected int weight;
     private int heightInInches;
     private int BMI;
     private double BMR;
     private double activity;
-    private Scanner keyboard = new Scanner(System.in);
-    private List<WeightTracker> weightTrackers = new ArrayList<>();
+    protected Scanner keyboard = new Scanner(System.in);
+    private List<WeightManagementTracker> weightTrackers = new ArrayList<>();
 
 
     private int findAge(){
@@ -33,20 +33,18 @@ public class WeightClass {
         return heightInInches;
     }
 
-
     private int findBMI(){
         int BMI;
         BMI = ((weight * 703) / (heightInInches * heightInInches));
         return BMI;
     }
 
-
     public void returnBMI(){
         age = findAge();
         weight = findWeight();
         heightInInches = findHeight();
         BMI = findBMI();
-        weightTrackers.add(new WeightTracker(age, weight, heightInInches));
+        weightTrackers.add(new WeightManagementTracker(age, weight, heightInInches));
 
         System.out.println("Your BMI is: " + BMI);
     }
@@ -70,15 +68,19 @@ public class WeightClass {
 
     public void returnBMR(){
        BMR = findBMR();
-        System.out.println("Your BMR is " + BMR);
+        System.out.println("Your BMR is " + String.format("%.1f", BMR));
     }
 
-    public double activityList(){
+    public void activityList(){
         System.out.println("Select from one of the following");
         System.out.println("1. Little to no exercise");
         System.out.println("2. Light exercise");
         System.out.println("3. Moderate exercise: 3-5 days a week");
         System.out.println("4. Very active: 6-7 days a week");
+    }
+
+    public double setActivity(){
+        activityList();
         int choiceOfActivity = keyboard.nextInt();
 
         switch (choiceOfActivity){
@@ -105,8 +107,8 @@ public class WeightClass {
     }
 
     public void returnActivityLevel(){
-        activity = activityList();
-        System.out.println("Your actual calorie intake should be: " + activity + " cals a day.");
+        activity = setActivity();
+        System.out.println("Your actual calorie intake should be: " + String.format("%.1f", activity) + " cals a day.");
     }
 
 }
